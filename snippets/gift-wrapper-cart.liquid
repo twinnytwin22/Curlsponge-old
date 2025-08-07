@@ -1,0 +1,27 @@
+{%- liquid
+    assign product = all_products[gift_card_product]
+    assign product_downcase = product | downcase
+    assign id = product.selected_or_first_available_variant.id | minus: 0
+-%}
+{%- if product_downcase != 'emptydrop' -%}
+    {%- liquid
+        assign check = false
+        for item in cart.items
+            if item.id == id
+                assign check = true
+            endif
+        endfor
+    -%}
+    <div class="cart-gift" data-id="{{ id }}" {% if check %}style="display: none"{% endif %}>
+        {%- if gift_card_content != blank -%}
+            {% render 'icon-gift-card' %}
+            <span class="content">
+                {{ gift_card_content }}
+            </span>
+            <a id="gift-wrapping" href="javascript:void(0)" data-gift-card data-gift-card-id="{{ id }}" data-add-text="{{ 'sections.cart.gift_cart_add' | t }}" data-adding-text="{{ 'sections.cart.gift_cart_adding' | t }}">
+                {{ 'sections.cart.gift_cart_add' | t }}
+            </a>
+            <input type="hidden" name="attributes[gift-wrapping]" value="yes"/>
+        {%- endif -%}
+    </div>
+{%- endif -%}

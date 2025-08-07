@@ -1,0 +1,52 @@
+{%- if settings.ask_an_expert_show == 'all_page' -%}
+	{{ 'component-ask-an-expert.css' | asset_url | stylesheet_tag }}
+{%- else -%}
+	<link rel="stylesheet" href="{{ 'component-ask-an-expert.css' | asset_url }}" media="print" onload="this.media='all'">
+	<noscript>{{ 'component-ask-an-expert.css' | asset_url | stylesheet_tag }}</noscript>
+{%- endif -%}
+
+{%- if settings.ask_an_expert_show == 'all_page' -%}
+	<div class="halo-ask-an-expert-banner">
+	    <a href="#" data-open-ask-an-expert {% if settings.ask_an_expert_banner != blank %} class="link"{% endif %} role="button">
+		    {%- if settings.ask_an_expert_banner != blank -%}
+		        {% assign image = settings.ask_an_expert_banner %}
+		        <img srcset="{{ image | img_url: 'master' }} 1x, {{ image | img_url: 'master', scale: 2 }} 2x"
+	                src="{{ image | img_url: 'master' }}"
+	                loading="lazy"
+	                alt="{{ image.alt | default: shop.name | escape }}"
+	                width="{{ image.width | replace: 'px', '' }}"
+	                height="{{ image.height | replace: 'px', '' }}"
+	            >
+		    {%- else -%}
+		    	{{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+		    {%- endif -%}
+		    <span class="wrap">
+			    {%- if settings.ask_an_expert_icon_1 != blank -%}
+                    {{ settings.ask_an_expert_icon_1 }}
+                {%- elsif settings.ask_an_expert_icon_2 != blank -%}
+                    {{ settings.ask_an_expert_icon_2 }}
+			    {%- else -%}
+			    	{% render 'icon-question' %}
+			    {%- endif -%}
+		    </span>
+	    </a>
+	</div>
+{%- endif -%}
+
+<div class="halo-popup halo-ask-an-expert-popup halo-popup-topDown customPopup-large" data-ask-an-expert-popup id="halo-ask-an-expert-popup">
+    <div class="halo-popup-wrapper">
+    	<div class="halo-popup-header">
+            <a href="javascript:void(0)" class="halo-popup-close clearfix" data-close-ask-an-expert role="button">
+            	<span class="visually-hidden">{{ 'general.common.close' | t }}</span>
+                {% render 'icon-close' %}
+            </a>
+            {%- if settings.ask_an_expert_header != blank -%}
+	            <h5 class="halo-popup-title text-center">
+	                {{ settings.ask_an_expert_header | escape }}
+	            </h5>
+	        {%- endif -%}
+    	</div>
+        <div class="halo-popup-content halo-popup-scroll custom-scrollbar"></div>
+    </div>
+</div>
+<script src="{{ 'halo-ask-an-expert.js' | asset_url }}" defer="defer"></script>

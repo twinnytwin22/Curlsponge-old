@@ -1,0 +1,25 @@
+{%- liquid
+	if type == 'main-product'
+		assign quantity_id = product.id | prepend: 'quantity-'
+	else
+		assign quantity_id = product.id | prepend: 'quantity-quick-view-'
+	endif
+-%}
+<{% if type == 'main-product' %}quantity-input{% else %}quantity-quick-view-input{% endif %} class="productView-quantity quantity__group clearfix style-{{ style }}">
+    <label class="form-label quantity__label hiddenLabels" for="{{ quantity_id }}">
+        {{ 'products.product.quantity.label' | t }}
+    </label>
+    {%- if style == '2' -%}
+	    <button class="quantity__button no-js-hidden" name="minus" type="button">
+	    	<span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
+	      	{% render 'icon-minus' %}
+	    </button>
+	{%- endif -%}
+    <input class="form-input quantity__input" type="number" name="quantity" min="1" value="1" inputmode="numeric" pattern="[0-9]*" id="{{ quantity_id }}" data-product="{{ product.id }}" data-price="{{ current_variant.price }}" {% if current_variant.inventory_management == 'shopify' and current_variant.inventory_quantity > 0 %} data-inventory-quantity="{{ current_variant.inventory_quantity }}"{% endif %} {% unless current_variant.available %} disabled{% endunless %}>
+    {%- if style == '2' -%}
+    	<button class="quantity__button no-js-hidden" name="plus" type="button">
+          	<span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
+          	{% render 'icon-plus' %}
+        </button>
+    {%- endif -%}
+</{% if type == 'main-product' %}quantity-input{% else %}quantity-quick-view-input{% endif %}>

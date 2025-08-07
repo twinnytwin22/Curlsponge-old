@@ -1,0 +1,42 @@
+{{ 'component-custom-information.css' | asset_url | stylesheet_tag }}
+
+<product-custom-info class="productView-customInfo custom-information">
+	{%- for block in section.blocks -%}
+		{%- if  block.type == 'popup_information' -%}
+			{%- liquid
+				assign icon = block.settings.icon
+				assign title = block.settings.title
+				assign content = block.settings.content
+				assign content_popup = block.settings.content_popup
+			-%}
+			{%- if icon != blank or title != blank or content != blank or content_popup != blank -%}
+				<div class="item">
+					<div class="icon" {% if content_popup != blank %} data-custom-information{% endif%}>
+						{{ icon }}
+					</div>
+					<div class="wrapper-content" {% if content_popup != blank %} data-custom-information{% endif%}>
+						<h3 class="title">
+							<span class="text">{{ title }}</span>
+							{%- if show_question_mark_icon -%}
+								<span class="symbol">
+									{% render 'icon-question',
+										icon_question: '1'
+									%}
+								</span>
+							{%- endif -%}
+						</h3>
+						<div class="desc">
+							{{ content }}
+						</div>
+						<div class="desc_popup hide">
+							<div class="halo-text-format">
+								{{ content_popup }}
+							</div>
+						</div>
+					</div>
+				</div>
+		    {%- endif -%}
+		{%- endif -%}
+	{%- endfor -%}
+</product-custom-info>
+<script src="{{ 'custom-information.js' | asset_url }}" defer="defer"></script>

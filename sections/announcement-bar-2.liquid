@@ -1,0 +1,156 @@
+{%- if section.settings.show_announcement_bar and section.blocks.size > 0 -%}
+    {{ 'component-announcement-bar.css' | asset_url | stylesheet_tag }}
+	{%- liquid
+        assign container = section.settings.container
+        assign show = section.settings.announcement-bar-show
+        assign announcement_bar_bg = section.settings.announcement_bar_bg
+        assign announcement_bar_color = section.settings.announcement_bar_color
+        assign has_announcement_bar = false
+        if show == 'home'
+            assign page_type = request.page_type | replace: 'customers/', ''
+            if page_type == 'index'
+                assign has_announcement_bar = true
+            endif
+        else
+            assign has_announcement_bar = true
+        endif
+    -%}
+    {%- if has_announcement_bar -%}
+    	<style type="text/css">
+    		#announcement-bar-{{ section.id }}{
+    			background: {{ announcement_bar_bg }};
+    		}
+
+    		#announcement-bar-{{ section.id }} .top-announcement-bar-item{
+    			color: {{ announcement_bar_color }};
+    		}
+
+    		#announcement-bar-{{ section.id }} .top-announcement-bar-2 .slick-arrow svg{
+    			fill: {{ announcement_bar_color }};
+                stroke: {{ announcement_bar_color }};
+    		}
+    	</style>
+    	<div class="announcement-bar" role="region" aria-label="{{ 'sections.header.announcement' | t }}" id="announcement-bar-{{ section.id }}">
+    		<div class="container container-{{ container }}">
+    			<div class="top-announcement-bar top-announcement-bar-2" data-announcement-bar>
+    				{%- for block in section.blocks -%}
+    					{%- liquid
+                            assign text = block.settings.text
+                            assign link = block.settings.link
+                        -%}
+                        {%- if text != blank -%}
+                        	<div class="top-announcement-bar-item text-center">
+                                <{% if link != blank %}a{% else %}div{% endif %} class="wrapper"{% if link != blank %} href="{{ link }}"{% endif %}>
+                                    {{ text }}
+                                </{% if link != blank %}a{% else %}div{% endif %}>
+                            </div>
+                        {%- endif -%}
+    				{%- endfor -%}
+    			</div>
+    		</div>
+    	</div>
+    {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+    "name": "t:sections.announcement-bar.name",
+    "settings": [
+        {
+            "type": "header",
+            "content": "t:sections.announcement-bar.settings.header__1.content"
+        },
+        {
+            "type": "checkbox",
+            "label": "t:sections.announcement-bar.settings.general.label__1",
+            "id": "show_announcement_bar",
+            "default": true
+        },
+        {
+            "type": "select",
+            "id": "container",
+            "label": "t:sections.general.settings.container.label__1",
+            "default": "1370",
+            "options": [
+            {
+                "value": "1170",
+                "label": "t:sections.general.settings.container.options__1"
+            },
+            {
+                "value": "1370",
+                "label": "t:sections.general.settings.container.options__2"
+            },
+            {
+                "value": "1570",
+                "label": "t:sections.general.settings.container.options__3"
+            },
+            {
+                "value": "1770",
+                "label": "t:sections.general.settings.container.options__4"
+            },
+            {
+                "value": "1860",
+                "label": "t:sections.general.settings.container.options__5"
+            },
+            {
+                "value": "full",
+                "label": "t:sections.general.settings.container.options__6"
+            }],
+            "info": "t:sections.general.settings.container.info"
+        },
+        {
+            "type": "select",
+            "id": "announcement-bar-show",
+            "label": "t:sections.announcement-bar.settings.general.label__3",
+            "default": "all",
+            "options":
+            [
+                {
+                    "value": "home",
+                    "label": "t:sections.announcement-bar.settings.general.options__3"
+                },
+                {
+                    "value": "all",
+                    "label": "t:sections.announcement-bar.settings.general.options__4"
+                }
+            ]
+        },
+        {
+            "type": "header",
+            "content": "t:sections.announcement-bar.settings.header__2.content"
+        },
+        {
+            "type": "color_background",
+            "label": "t:sections.general.settings.color.label__1",
+            "id": "announcement_bar_bg",
+            "default": "#F5E3E7"
+        },
+        {
+            "type": "color",
+            "label": "t:sections.general.settings.color.label__2",
+            "id": "announcement_bar_color",
+            "default": "#202020"
+        }
+    ],
+    "blocks": [
+	    {
+	    	"type": "text",
+	    	"name": "t:sections.announcement-bar.blocks.text.name",
+	    	"settings": [
+	    		{
+			        "type": "html",
+			        "id": "text",
+			        "label": "t:sections.general.settings.content.label__2",
+			        "default": "<p>Welcome to our store</p>"
+			    },
+			    {
+			        "type": "url",
+			        "id": "link",
+			        "label": "t:sections.general.settings.content.label__4",
+                    "info": "t:sections.general.settings.content.info__1"
+			    }
+	    	]
+	    }
+    ]
+}
+{% endschema %}

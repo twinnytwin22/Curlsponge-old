@@ -1,0 +1,10 @@
+{%- if settings.show_wishlist -%}
+	<script src="{{ 'halo.set-wishlist.js' | asset_url }}"></script>
+{%- endif -%}
+{%- if settings.show_compare -%}
+	<script src="{{ 'halo.set-compare.js' | asset_url }}"></script>
+{%- endif -%}
+{%- if settings.show_swatch and settings.product_swatch_type == 'slider' -%}
+	<script src="{{ 'halo.slide-swatch.js' | asset_url }}"></script>
+{%- endif -%}
+<script src="{{ 'theme.min.js' | asset_url }}"></script>

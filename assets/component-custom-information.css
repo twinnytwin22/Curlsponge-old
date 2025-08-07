@@ -1,0 +1,95 @@
+product-custom-info{
+    display: block;
+}
+
+.custom-information{
+	margin: 25px 0px -8px;
+}
+
+.custom-information .item{
+	display: flex;
+	justify-content: flex-start;
+	align-items: flex-start;
+	margin-bottom: 12px;
+}
+
+.custom-information .icon{
+	margin-right: 10px;
+}
+
+.custom-information .icon svg{
+	position: relative;
+    width: 25px;
+    height: 25px;
+    stroke: var(--icon);
+}
+
+[data-custom-information] {
+    cursor: pointer;
+}
+
+.custom-information .wrapper-content{
+    padding: 2px 0 0;
+}
+
+.custom-information .wrapper-content .title{
+    display: flex;
+    align-items: center;
+    font-family: var(--font-body-family);
+    font-weight: var(--font-weight-semibold);
+	font-size: calc(var(--font-size) - 1px);
+	color: var(--color-text);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.custom-information .wrapper-content .title .symbol{
+	position: relative;
+    top: -2px;
+    margin-left: 10px;
+}
+
+.custom-information .wrapper-content .title .symbol svg{
+	width: 16px;
+	height: 16px;
+}
+
+.custom-information .wrapper-content .desc{
+	font-size: calc(var(--font-size) - 2px);
+    font-weight: var(--font-weight-normal);
+    line-height: var(--line-height);
+    letter-spacing: var(--letter-spacing);
+    color: var(--color-text2);
+    padding: 3px 0px 0px;
+}
+
+.custom-information .wrapper-content .desc p{
+	margin: 0px;
+	padding-bottom: 4px;
+}
+
+.halo-global-custom-informatin-popup .halo-popup-header .symbol{
+    display: none;
+}
+
+body.custom-info-show{
+    overflow: hidden;
+    height: 100%;
+}
+
+body.custom-info-show .background-overlay{
+    display: block;
+}
+
+body.custom-info-show .halo-global-custom-informatin-popup{
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate3d(-50%,-50%,0);
+}
+
+@media (min-width: 1025px){
+    body.custom-info-show{
+        padding-right: 10px;
+    }
+}

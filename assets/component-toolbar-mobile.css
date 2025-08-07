@@ -1,0 +1,57 @@
+.halo-toolbar-mobile{
+    position: fixed;
+    display: block;
+    bottom: 0px;
+    padding: 10px 15px;
+    z-index: 9;
+    transition: transform .6s;
+    width: 100%;
+    box-shadow: 0 6px 27px 0 rgb(0,0,0,0.2)
+}
+
+.halo-toolbar-mobile.show_text{
+    padding: 6px 15px 5px;
+}
+
+.halo-toolbar-mobile .halo-toolbar-wrapper{
+    display: flex;
+    justify-content: space-between;
+}
+
+.halo-toolbar-mobile .halo-toolbar-item .link{
+    text-align: center;
+    position: relative;
+}
+
+.halo-toolbar-mobile .halo-toolbar-item .label{
+    display: block;
+    font-size: calc(var(--font-size) - 3px);
+    letter-spacing: var(--letter-spacing);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height);
+}
+
+.halo-toolbar-mobile .halo-toolbar-item svg{
+    width: 30px;
+    height: 30px;
+    fill: var(--icon);
+    stroke: transparent;
+}
+
+.halo-toolbar-mobile .halo-toolbar-item .cart-count-bubble {
+    top: -2px;
+    right: -3px;
+    min-width: 20px;
+    min-height: 20px;
+    line-height: 20px;
+}
+
+.halo-toolbar-mobile.show_text .halo-toolbar-item svg{
+    padding: 2px;
+}
+
+@media (min-width: 1025px){
+    .halo-toolbar-mobile{
+        display: none;
+    }
+}
